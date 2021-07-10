@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from event_reminder.models import CustomUser, Country
+
+admin.site.register(CustomUser)
+admin.site.register(Country)
