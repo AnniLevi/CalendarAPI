@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from event_reminder.models import CustomUser
+from event_reminder.models import CustomUser, Event
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,3 +17,11 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = CustomUser.objects.create_user(**validated_data)
         return user
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['name', 'datetime_start', 'time_end', 'remind_unit', 'number_of_remind_units']
+
+

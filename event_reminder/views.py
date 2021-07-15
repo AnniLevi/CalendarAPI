@@ -1,13 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from rest_framework import status
-from rest_framework.generics import GenericAPIView
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication, SessionAuthentication
+from rest_framework.generics import GenericAPIView, CreateAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 
 from event_reminder.models import CustomUser
-from event_reminder.serializers import RegisterSerializer, UserSerializer
+from event_reminder.serializers import RegisterSerializer, UserSerializer, EventSerializer
 from CalendarAPI.settings import DEFAULT_FROM_EMAIL
 
 
@@ -35,7 +37,7 @@ class RegisterAPI(GenericAPIView):
         )
 
 
-class GetToken(APIView):
+class GetTokenAPI(APIView):
     def post(self, request):
         user = authenticate(
             email=request.data['email'],
@@ -52,4 +54,13 @@ class GetToken(APIView):
             return Response({"token": token}, status=status.HTTP_200_OK)
         return Response('User with such data does not exist', status=status.HTTP_400_BAD_REQUEST)
 
+
+class EventCreateAPI(CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication, ]
+    serializer_class = EventSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        print(serializer.data)
 
