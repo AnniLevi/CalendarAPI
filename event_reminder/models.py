@@ -52,3 +52,12 @@ class Event(models.Model):
     def __str__(self):
         return self.name
 
+
+class Holiday(models.Model):
+    name = models.TextField()
+    date_start = models.DateField()
+    date_end = models.DateField()
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
