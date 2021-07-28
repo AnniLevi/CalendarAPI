@@ -78,7 +78,7 @@ Request (POST-method):
 
 - "datetime_start" - enter date and start time of event (required field)  
 - "time_end" - enter time end of event (default = "23:59:59")  
-- If you would like to receive a reminder of an event on your email, specify set a value for the time units for the reminder -  "remind_unit" field.
+- If you would like to receive a reminder of an event on your email, set a value for the time units for the reminder -  "remind_unit" field.
 Possible values:  
 > 60 - minutes,  
 > 3600 - hours,  
