@@ -15,7 +15,7 @@ Request (POST-method):
 {
     "email": "email@email.email",
     "password": "testpassword",
-    "country": 10
+    "country": 19
 }
 ```
 Enter country id
@@ -131,7 +131,7 @@ Response:
 ]
 ```
 
-### Getting a list of events for the month
+### Getting the general aggregation of events by day for the month
 
 > /events_for_month/
 
@@ -175,3 +175,37 @@ Response:
 }
 ```
 
+### Getting a list of holidays for the month
+
+> /events_for_month/
+
+Request (GET-method):
+```
+{
+    "month": 5
+}
+```
+
+- "month" - enter the month number.
+
+Response:
+```
+[
+    {
+        "id": 778,
+        "name": "Labour Day",
+        "date_start": "2021-05-01",
+        "date_end": "2021-05-02"
+    },
+    {
+        "id": 779,
+        "name": "Victory Day",
+        "date_start": "2021-05-09",
+        "date_end": "2021-05-10"
+    },
+   {
+            ...
+    },
+```
+
+You will receive a list of all holidays for the month for the user's country

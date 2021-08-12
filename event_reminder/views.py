@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, CreateAPIView, ListAPIView
@@ -6,8 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
-from event_reminder.models import CustomUser, Event
-from event_reminder.serializers import RegisterSerializer, UserSerializer, EventSerializer
+from event_reminder.models import Event, Holiday
+from event_reminder.serializers import RegisterSerializer, UserSerializer, EventSerializer, HolidaySerializer
 from CalendarAPI.settings import DEFAULT_FROM_EMAIL
 from collections import defaultdict
 
@@ -85,4 +85,14 @@ class MonthEventsAPI(ListAPIView):
             result[str(event.datetime_start.date())].append(self.serializer_class(event).data)
         return Response(result, status=status.HTTP_200_OK)
 
+
+class MonthHolidaysAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = HolidaySerializer
+
+    def get(self, request, *args, **kwargs):
+        month = request.data.get('month')
+        queryset = Holiday.objects.filter(country=self.request.user.country, date_start__month=month)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 

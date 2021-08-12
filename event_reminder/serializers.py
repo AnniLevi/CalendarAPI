@@ -1,17 +1,17 @@
 from rest_framework import serializers
-from event_reminder.models import CustomUser, Event
+from event_reminder.models import CustomUser, Event, Holiday
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'country']
+        fields = ('id', 'email', 'country')
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'password', 'email', 'country']
+        fields = ('id', 'password', 'email', 'country')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -22,6 +22,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['id', 'name', 'datetime_start', 'time_end', 'remind_unit', 'number_of_remind_units']
+        fields = ('id', 'name', 'datetime_start', 'time_end', 'remind_unit', 'number_of_remind_units')
 
 
+class HolidaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Holiday
+        fields = ('id', 'name', 'date_start', 'date_end')
