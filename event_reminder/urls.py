@@ -6,5 +6,6 @@ urlpatterns = [
     path('get_token/', GetTokenAPI.as_view(), name='get-token'),
     path('create_event/', EventCreateAPI.as_view()),
     path('events_for_day/', DayEventsAPI.as_view()),
+    path('events_for_month/', MonthEventsAPI.as_view()),
 
 ]

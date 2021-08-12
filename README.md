@@ -92,7 +92,7 @@ Response:
 ```
 {
     "id": 1,
-    "name": "event1",
+    "name": "test_event",
     "datetime_start": "2021-07-15T15:30:00+03:00",
     "time_end": "16:00:00",
     "remind_unit": 60,
@@ -104,7 +104,7 @@ Response:
 
 > /events_for_day/
 
-Request (POST-method):
+Request (GET-method):
 ```
 {
     "date": "2021-07-15"
@@ -117,7 +117,7 @@ Response:
     {
         "id": 1,
         "name": "test_event",
-        "datetime_start": "2021-08-15T15:30:00+03:00",
+        "datetime_start": "2021-07-15T15:30:00+03:00",
         "time_end": "16:00:00",
         "remind_unit": 60,
         "number_of_remind_units": 5
@@ -127,7 +127,51 @@ Response:
     },
     {
         ...
-    },
+    }
 ]
+```
+
+### Getting a list of events for the month
+
+> /events_for_month/
+
+Request (GET-method):
+```
+{
+    "month": 7
+}
+```
+
+- "month" - enter the month number.
+
+Response:
+```
+{
+    "2021-08-15": [
+        {
+            "id": 1,
+            "name": "test_event",
+            "datetime_start": "2021-08-15T15:30:00+03:00",
+            "time_end": "16:00:00",
+            "remind_unit": 60,
+            "number_of_remind_units": 5
+        },
+        {
+            ...
+        },
+        {
+            ...
+        }
+    ],
+    "2021-08-16": [
+        {
+            ...
+        },
+        {
+            ...
+        }
+    ],
+    ...
+}
 ```
 
