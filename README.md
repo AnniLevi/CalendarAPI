@@ -102,14 +102,9 @@ Response:
 
 ### Getting a list of events for the day
 
-> /events_for_day/
+> /events_for_day/?date=2021-08-15
 
-Request (GET-method):
-```
-{
-    "date": "2021-07-15"
-}
-```
+Request (GET-method with params)
 
 Response:
 ```
@@ -124,25 +119,16 @@ Response:
     },
     {
         ...
-    },
-    {
-        ...
     }
 ]
 ```
 
 ### Getting the general aggregation of events by day for the month
 
-> /events_for_month/
+> /events_for_month/?month=7
 
-Request (GET-method):
-```
-{
-    "month": 7
-}
-```
+Request (GET-method with params)
 
-- "month" - enter the month number.
 
 Response:
 ```
@@ -158,15 +144,9 @@ Response:
         },
         {
             ...
-        },
-        {
-            ...
         }
     ],
     "2021-08-16": [
-        {
-            ...
-        },
         {
             ...
         }
@@ -177,16 +157,9 @@ Response:
 
 ### Getting a list of holidays for the month
 
-> /events_for_month/
+> /holidays_for_month/?month=5
 
-Request (GET-method):
-```
-{
-    "month": 5
-}
-```
-
-- "month" - enter the month number.
+Request (GET-method with params)
 
 Response:
 ```
@@ -206,6 +179,7 @@ Response:
    {
             ...
     },
+]
 ```
 
-You will receive a list of all holidays for the month for the user's country
+You will receive a list of all holidays for the month in the user's country

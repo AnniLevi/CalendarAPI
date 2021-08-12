@@ -66,20 +66,23 @@ class DayEventsAPI(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = EventSerializer
 
-    def get(self, request, *args, **kwargs):
-        date = request.data.get('date')
+    def get_queryset(self):
+        date = self.request.query_params.get('date')
         queryset = Event.objects.filter(user_id=self.request.user.id, datetime_start__date=date)
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return queryset
 
 
-class MonthEventsAPI(ListAPIView):
+class MonthEventsAPI(APIView):
     permission_classes = [IsAuthenticated]
     serializer_class = EventSerializer
 
-    def get(self, request, *args, **kwargs):
-        month = request.data.get('month')
+    def get_queryset(self):
+        month = self.request.query_params.get('month')
         queryset = Event.objects.filter(user_id=self.request.user.id, datetime_start__month=month)
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
         result = defaultdict(list)
         for event in queryset:
             result[str(event.datetime_start.date())].append(self.serializer_class(event).data)
@@ -90,9 +93,8 @@ class MonthHolidaysAPI(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = HolidaySerializer
 
-    def get(self, request, *args, **kwargs):
-        month = request.data.get('month')
+    def get_queryset(self):
+        month = self.request.query_params.get('month')
         queryset = Holiday.objects.filter(country=self.request.user.country, date_start__month=month)
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return queryset
 
