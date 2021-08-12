@@ -35,7 +35,7 @@ Response:
 You will receive a message with a token by email
 
 
-### Get token
+### Getting token
 
 If the token is lost, you can restore it (or get a new one)
 > /get_token/
@@ -54,6 +54,7 @@ Response:
 "token": "a32fa4cab52abb53c71ca35dcb312beb7742519d"
 }
 ```
+You will receive a message with a token by email
 
 
 **Note:**
@@ -61,7 +62,7 @@ Response:
 *headers = {"Authorization": "Token 0f9ccdafdd2d356d5215ae08ecf12ac9903bd307"}*
 
 
-### Create event
+### Create an event
 
 > /create_event/
 
@@ -90,6 +91,7 @@ Possible values:
 Response:
 ```
 {
+    "id": 1,
     "name": "event1",
     "datetime_start": "2021-07-15T15:30:00+03:00",
     "time_end": "16:00:00",
@@ -97,3 +99,35 @@ Response:
     "number_of_remind_units": 5
 }
 ```
+
+### Getting a list of events for the day
+
+> /events_for_day/
+
+Request (POST-method):
+```
+{
+    "date": "2021-07-15"
+}
+```
+
+Response:
+```
+[
+    {
+        "id": 1,
+        "name": "test_event",
+        "datetime_start": "2021-08-15T15:30:00+03:00",
+        "time_end": "16:00:00",
+        "remind_unit": 60,
+        "number_of_remind_units": 5
+    },
+    {
+        ...
+    },
+    {
+        ...
+    },
+]
+```
+

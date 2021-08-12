@@ -1,14 +1,15 @@
+import datetime
+
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication, TokenAuthentication, SessionAuthentication
-from rest_framework.generics import GenericAPIView, CreateAPIView
+from rest_framework.generics import GenericAPIView, CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
-
-from event_reminder.models import CustomUser
+from event_reminder.models import CustomUser, Event
 from event_reminder.serializers import RegisterSerializer, UserSerializer, EventSerializer
 from CalendarAPI.settings import DEFAULT_FROM_EMAIL
 
@@ -57,10 +58,27 @@ class GetTokenAPI(APIView):
 
 class EventCreateAPI(CreateAPIView):
     permission_classes = [IsAuthenticated]
-    # authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication, ]
     serializer_class = EventSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        print(serializer.data)
+        # print(serializer.data)
+
+
+class DayEventsAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = EventSerializer
+
+    def get(self, request, *args, **kwargs):
+        date = request.data.get('date')
+        queryset = Event.objects.filter(user_id=self.request.user.id,datetime_start__date=date)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+class MonthEventsAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = EventSerializer
 

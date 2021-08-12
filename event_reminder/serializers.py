@@ -22,6 +22,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['name', 'datetime_start', 'time_end', 'remind_unit', 'number_of_remind_units']
+        fields = ['id', 'name', 'datetime_start', 'time_end', 'remind_unit', 'number_of_remind_units']
 
 

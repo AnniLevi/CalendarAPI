@@ -4,7 +4,8 @@ from celery import shared_task
 from django.core.mail import send_mail
 from django.db.models import Q
 from CalendarAPI.settings import TIME_ZONE, DEFAULT_FROM_EMAIL
-from event_reminder.models import Event
+from event_reminder.models import Event, Holiday
+from django.core.management import call_command
 
 
 @shared_task
@@ -24,3 +25,8 @@ def remind_about_event():
         event.remind_time = True
         event.save()
 
+
+@shared_task
+def update_holidays():
+    Holiday.objects.delete()
+    call_command("get_holidays", )

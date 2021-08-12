@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from os import environ
+from celery.schedules import crontab
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -167,4 +168,8 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'event_reminder.tasks.remind_about_event',
         'schedule': 60
     },
+    'update_holidays': {
+        'task': 'event_reminder.tasks.update_holidays',
+        'schedule': crontab(hour=0, minute=0, day_of_month='1', month_of_year='*'),  # every month
+    }
 }
