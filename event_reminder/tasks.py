@@ -29,4 +29,4 @@ def remind_about_event():
 @shared_task
 def update_holidays():
     Holiday.objects.delete()
-    call_command("get_holidays", )
+    call_command("get_holidays")

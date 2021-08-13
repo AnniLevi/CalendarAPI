@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  web:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django
+    volumes:
+      - ./:/src
+    ports:
+      - "5000:5000"
+    command: sh -c "python3 manage.py makemigrations &&
+                    python3 manage.py migrate &&
+                    python3 manage.py get_countries &&
+                    python3 manage.py runserver 0.0.0.0:5000"
+    env_file:
+      - db_keys.txt
+    depends_on:
+      - db
+      - redis
+
+
+  db:
+    image: postgres:latest
+    container_name: postgres
+    env_file:
+      - db_keys.txt
+
+
+  redis:
+    image: redis:latest
+    container_name: redis
+
+
+  celery:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: celery
+    volumes:
+      - ./:/src
+    env_file:
+      - db_keys.txt
+    depends_on:
+      - db
+      - redis
+    command: sh -c "celery -A CalendarAPI worker -c 5 -l info -B"

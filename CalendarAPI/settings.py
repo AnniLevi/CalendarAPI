@@ -166,10 +166,10 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
     'user_notification': {
         'task': 'event_reminder.tasks.remind_about_event',
-        'schedule': 60
+        'schedule': 60  # every minute
     },
     'update_holidays': {
         'task': 'event_reminder.tasks.update_holidays',
-        'schedule': crontab(hour=0, minute=0, day_of_month='1', month_of_year='*'),  # every month
+        'schedule': crontab(hour=3, minute=0, day_of_month='1', month_of_year='*'),  # every month (need time - 3 hours)
     }
 }

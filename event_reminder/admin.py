@@ -4,7 +4,7 @@ from event_reminder.models import CustomUser, Country, Event, Holiday
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'datetime_start', 'time_end', 'reminded', 'user')
+    list_display = ('name', 'datetime_start', 'time_end', 'remind_time', 'reminded', 'user')
     readonly_fields = ('reminded', 'remind_time')
 
 

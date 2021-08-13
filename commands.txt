@@ -13,3 +13,13 @@ docker run -d -p 6379:6379 redis
 sudo docker-compose up --build
 
 docker-compose exec web python3 manage.py createsuperuser
+
+docker-compose exec web python3 manage.py get_holidays
+
+
+
+# зайти в контейнер django
+docker-compose exec web bash
+
+# логи django
+docker-compose logs -f web
