@@ -1,0 +1,15 @@
+# запуск  'schedule': crontab для периодической задачи (обновление праздников)
+celery -A CalendarAPI beat -l info
+
+# запуск воркера для отправки почты
+celery -A CalendarAPI worker -l info
+
+# запуск redis
+docker run -d -p 6379:6379 redis
+
+
+# через docker-compose:
+
+sudo docker-compose up --build
+
+docker-compose exec web python3 manage.py createsuperuser

@@ -27,7 +27,7 @@ Response:
     {
         "id": 1,
         "email": "email@email.email",
-        "country": 10
+        "country": 19
     },
     "token": "a32fa4cab52abb53c71ca35dcb312beb7742519d"
 }

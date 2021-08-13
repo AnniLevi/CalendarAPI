@@ -22,7 +22,7 @@ def remind_about_event():
                     f'On {event.datetime_start.date()} from {event.datetime_start.time()} to {event.time_end}\n'
                     f'you have an event scheduled: {event.name}.',
         )
-        event.remind_time = True
+        event.reminded = True
         event.save()
 
 
