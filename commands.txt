@@ -10,7 +10,7 @@ docker run -d -p 6379:6379 redis
 
 # через docker-compose:
 
-sudo docker-compose up --build
+docker-compose up --build
 
 docker-compose exec web python3 manage.py createsuperuser
 

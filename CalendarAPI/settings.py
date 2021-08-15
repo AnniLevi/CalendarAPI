@@ -170,6 +170,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'update_holidays': {
         'task': 'event_reminder.tasks.update_holidays',
-        'schedule': crontab(hour=3, minute=0, day_of_month='1', month_of_year='*'),  # every month (need time - 3 hours)
+        # 'schedule': crontab(hour=0, minute=0, day_of_month='1', month_of_year='*'),  # every month (need time - 3 hours)
+        'schedule': crontab(hour=13, minute=36, day_of_month='15', month_of_year='8'),  # every month (need time - 3 hours)
     }
 }

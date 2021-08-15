@@ -28,5 +28,5 @@ def remind_about_event():
 
 @shared_task
 def update_holidays():
-    Holiday.objects.delete()
+    Holiday.objects.all().delete()
     call_command("get_holidays")
