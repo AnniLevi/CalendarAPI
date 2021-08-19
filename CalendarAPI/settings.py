@@ -89,10 +89,22 @@ DATABASES = {
         'NAME': environ.get('POSTGRES_DB'),
         'USER': environ.get('POSTGRES_USER'),
         'PASSWORD': environ.get('POSTGRES_PASSWORD'),
-        'PORT': 5432,
-        'HOST': 'db',
+        'PORT': environ.get('POSTGRES_PORT'),
+        'HOST': environ.get('POSTGRES_HOST'),
     }
 }
+
+if environ.get('GITHUB_WORKFLOW'):
+    DATABASES = {
+        'default': {
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'postgres_workflow',
+           'USER': 'postgres',
+           'PASSWORD': 'password',
+           'HOST': '127.0.0.1',
+           'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
