@@ -94,6 +94,7 @@ DATABASES = {
     }
 }
 
+# if sys.argv[1] == 'test':
 if environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
